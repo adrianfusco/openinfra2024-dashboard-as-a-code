@@ -1,0 +1,40 @@
+apiVersion: 1
+datasources:
+## Opensearch
+
+- orgId: 1
+  name: opensearch-rdoproject-zuul
+  type: grafana-opensearch-datasource
+  access: proxy
+  url:
+  basicAuth: true
+  basicAuthUser: 
+  basicAuthPassword: 
+  withCredentials: true
+  isDefault: false
+  jsonData:
+    database: zuul.rdoproject.org-*
+    flavor: opensearch
+    maxConcurrentShardRequests: 5
+    pplEnabled: true
+    timeField: '@timestamp'
+    version: 2.4.0
+  version: 7
+  editable: true
+- orgId: 1
+  name: opensearch-rdoproject-logstash
+  type: grafana-opensearch-datasource
+  access: proxy
+  url: 
+  basicAuth: true
+  basicAuthUser: 
+  basicAuthPassword: 
+  withCredentials: true
+  isDefault: false
+  jsonData:
+    database: logstash-rdoproject_org-*
+    flavor: opensearch
+    maxConcurrentShardRequests: 5
+    pplEnabled: true
+    timeField: '@timestamp'
+    version: 2.4.0
