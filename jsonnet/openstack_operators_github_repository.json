@@ -1,0 +1,34 @@
+{
+   "description": "This is how we generate a description for our dashboard",
+   "panels": [
+      {
+         "datasource": {
+            "type": "datasource",
+            "uid": "-- Mixed --"
+         },
+         "gridPos": {
+            "h": 22,
+            "w": 10,
+            "x": 0,
+            "y": 0
+         },
+         "id": 1,
+         "options": {
+            "content": "<h2><a href=\"https://github.com/openstack-k8s-operators/ci-framework\">Go to GitHub ci-framework Repository</a></h2>\n<h2><a href=\"https://github.com/openstack-k8s-operators/openstack-operator\">Go to GitHub openstack-operator Repository</a></h2>\n<h2><a href=\"https://github.com/openstack-k8s-operators/dataplane-operator\">Go to GitHub dataplane-operator Repository</a></h2>\n<h2><a href=\"https://github.com/openstack-k8s-operators/openstack-ansibleee-operator\">Go to GitHub openstack-ansibleee-operator Repository</a></h2>\n"
+         },
+         "pluginVersion": "v10.4.0",
+         "title": "Openstack on Openshift GitHub Repositories",
+         "type": "text"
+      }
+   ],
+   "schemaVersion": 36,
+   "tags": [
+      "openinfra2024"
+   ],
+   "time": {
+      "from": "now-6h",
+      "to": "now"
+   },
+   "timezone": "utc",
+   "title": "OpenInfra 2024 Germany"
+}
