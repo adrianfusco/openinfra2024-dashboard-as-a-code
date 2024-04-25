@@ -3,17 +3,17 @@ datasources:
 ## Opensearch
 
 - orgId: 1
-  name: opensearch-rdoproject-zuul
+  name: opensearch-openstack-zuul
   type: grafana-opensearch-datasource
   access: proxy
-  url:
+  url: https://opensearch.logs.openstack.org/
   basicAuth: true
-  basicAuthUser: 
-  basicAuthPassword: 
+  basicAuthUser: openstack
+  basicAuthPassword: openstack
   withCredentials: true
   isDefault: false
   jsonData:
-    database: zuul.rdoproject.org-*
+    database: logstash-logs-*
     flavor: opensearch
     maxConcurrentShardRequests: 5
     pplEnabled: true
@@ -21,20 +21,4 @@ datasources:
     version: 2.4.0
   version: 7
   editable: true
-- orgId: 1
-  name: opensearch-rdoproject-logstash
-  type: grafana-opensearch-datasource
-  access: proxy
-  url: 
-  basicAuth: true
-  basicAuthUser: 
-  basicAuthPassword: 
-  withCredentials: true
-  isDefault: false
-  jsonData:
-    database: logstash-rdoproject_org-*
-    flavor: opensearch
-    maxConcurrentShardRequests: 5
-    pplEnabled: true
-    timeField: '@timestamp'
-    version: 2.4.0
+
