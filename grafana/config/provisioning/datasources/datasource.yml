@@ -6,6 +6,7 @@ datasources:
   name: opensearch-openstack-zuul
   type: grafana-opensearch-datasource
   access: proxy
+  # Kibana: https://opensearch.logs.openstack.org/_dashboards/app/login
   url: https://opensearch.logs.openstack.org/
   basicAuth: true
   basicAuthUser: openstack
