@@ -77,6 +77,8 @@ $ jsonnet -J vendor zuul-ci-upstream-openstack-jobs.jsonnet > ../zuul-ci-upstrea
 
 If we restart our docker compose we will see the dashboard :)
 
+![Openstack Upstream Centos 9 Visualizations](./img/grafana-dashboard.png)
+
 ### Docker image with jsonnet, jb & grafonnet
 
 We can use this image to generate the JSON models for Grafana mapping the jsonnet file as a volumen. Just in case you don't wanna install everything on local.
