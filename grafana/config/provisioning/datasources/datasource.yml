@@ -1,25 +1,21 @@
 apiVersion: 1
 datasources:
-## Opensearch
-
-- orgId: 1
-  name: opensearch-openstack-zuul
-  type: grafana-opensearch-datasource
-  access: proxy
-  # Kibana: https://opensearch.logs.openstack.org/_dashboards/app/login
-  url: https://opensearch.logs.openstack.org/
-  basicAuth: true
-  basicAuthUser: openstack
-  basicAuthPassword: openstack
-  withCredentials: true
-  isDefault: false
-  jsonData:
-    database: logstash-logs-*
-    flavor: opensearch
-    maxConcurrentShardRequests: 5
-    pplEnabled: true
-    timeField: '@timestamp'
-    version: 2.4.0
-  version: 7
-  editable: true
-
+  - name: opensearch-rdoproject-zuul
+    type: grafana-opensearch-datasource
+    access: proxy
+    url: https://opensearch.rdoproject.org/elasticsearch
+    basicAuth: true
+    basicAuthUser: kibana_rdoproject_org
+    basicAuthPassword: rdoproject_org
+    withCredentials: true
+    isDefault: true
+    jsonData:
+      database: zuul.rdoproject.org-*
+      timeField: '@timestamp'
+      version: 2.11.1
+      flavor: 'opensearch'
+      maxConcurrentShardRequests: 5
+    secureJsonData:
+      basicAuthPassword: rdoproject_org
+      xpack: true
+    version: 7

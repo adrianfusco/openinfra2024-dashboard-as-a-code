@@ -25,14 +25,19 @@ copy and pastes, manual work, among all other things.
 - [Grafonnet API for building dashboards](https://grafana.github.io/grafonnet/API/index.html)
 - [Extra libraries developed on jsonnet by Grafana Labs](https://github.com/grafana/jsonnet-libs/tree/master)
 
-## jsonnet examples
+## jsonnet
+
+We have some examples in `jsonnet` language. It’s important to take a look before jumping to the `grafonnet` section since it has been written in `jsonnet` and we will need it for being able to write some dashboards and visualizations.
 
 All the jsonnet examples will be under the [jsonnet-examples](./jsonnet_examples/README.md).
 
 ## Grafana and grafonnet examples
 
-We can setup a local environment with Grafana and and a local docker image with jsonnet & grafonnet to generate the JSON models that Grafana can understand.
-We can find more information [grafana](./grafana/README.md).
+We can setup a local environment with Grafana and and a local docker image with `jsonnet` & `grafonnet` to generate the JSON models that Grafana can understand.
+
+We have a `docker-compose.yml` with grafana and we are using provisioning. Everything is configured already to set-up one `opensearch` datasource that is public available and also a generated JSON model dashboard that will appear once we execute `docker compose up`.
+
+We can find more information under the [grafana](./grafana/README.md) folder of this repository.
 
 ## Authors
 

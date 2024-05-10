@@ -1,11 +1,29 @@
 # Grafana & Grafonnet
 
+## Grafana environment
+
+We have prepared a simple [docker-compose.yml](./docker-compose.yml) file that contains a Grafana image.
+
+We have some volumes mapped:
+
+- [datasource.yml](./config/provisioning/datasources/datasource.yml): We have an opensearch datasource configured via provisioning. It contains real upstream public information about some Centos 9 openstack pipelines with several jobs.
+- [dashboards/OpenInfra/](./config/dashboards/OpenInfra/): We have a folder where all the JSON models that Grafana can understand will be stored. We will also have the `jsonnet` files there.
+
+Set-up:
+
+```bash
+docker compose up
+```
+
+## Build dashboards with Grafonnet
+
+
 Requirements:
 
-- jsonnet: [How to Install jsonnet](https://github.com/google/jsonnet?tab=readme-ov-file#packages)
-- jsonnet-bundler: [How to Install jsonnet-bundler](https://github.com/jsonnet-bundler/jsonnet-bundler?tab=readme-ov-file#install)
+- jsonnet: [How to Install jsonnet](https://github.com/google/jsonnet?tab=readme-ov-file#packages): We will need to install `jsonnet` configuration language.
+- jsonnet-bundler: [How to Install jsonnet-bundler](https://github.com/jsonnet-bundler/jsonnet-bundler?tab=readme-ov-file#install): We will also need the jsonnet package manager for being able to install `grafonnet`.
 
-## Install grafonnet locally
+### Install grafonnet locally
 
 ```bash
 $ jb --help
@@ -41,7 +59,25 @@ lrwxrwxrwx 1 afuscoar afuscoar   49 may  9 18:53 grafonnet-latest -> github.com/
 lrwxrwxrwx 1 afuscoar afuscoar   42 may  9 18:53 doc-util -> github.com/jsonnet-libs/docsonnet/doc-util
 ```
 
-## Docker image with jsonnet, jb & grafonnet
+Once we have everything installed and our `vendor` folder with the dependencies has been created. We can generate the JSON model that Grafana can understand from our `jsonnet` files.
+
+```bash
+$ cd config/dashboards/OpenInfra/jsonnet/
+
+# We will see the entire output without erros if all the code is correct
+$ jsonnet -J vendor zuul-ci-upstream-openstack-jobs.jsonnet
+{
+   "description": "List of Zuul Jobs under different upstream Openstack releases promotion pipelines",
+...
+}
+
+# We can save the JSON model under the `OpenInfra` folder:
+$ jsonnet -J vendor zuul-ci-upstream-openstack-jobs.jsonnet > ../zuul-ci-upstream-openstack-jobs.json
+```
+
+If we restart our docker compose we will see the dashboard :)
+
+### Docker image with jsonnet, jb & grafonnet
 
 We can use this image to generate the JSON models for Grafana mapping the jsonnet file as a volumen. Just in case you don't wanna install everything on local.
 
