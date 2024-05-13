@@ -135,7 +135,7 @@ Output:
 Example in: [supervisord_conf_ini.jsonnet](./ini_files/supervisord_conf_ini.jsonnet)
 
 ```bash
-$ jsonnet -S jsonnet_examples/ini_files/supervisord_conf_ini.jsonnet 
+$ jsonnet -S jsonnet-examples/ini_files/supervisord_conf_ini.jsonnet 
 
 [program:flask_app_api]
 autorestart = true
@@ -177,7 +177,7 @@ user = fedora
 Example in: [xml_request_response_example.jsonnet](./xml_files/xml_request_response_example.jsonnet)
 
 ```bash
-$ jsonnet -S jsonnet_examples/xml_files/xml_request_response_example.jsonnet --ext-str id=$(uuidgen)
+$ jsonnet -S jsonnet-examples/xml_files/xml_request_response_example.jsonnet --ext-str id=$(uuidgen)
 
 <xml encoding="utf-8" version="1.0">
   <statusCode>200</statusCode>
@@ -201,7 +201,7 @@ $ jsonnet -S jsonnet_examples/xml_files/xml_request_response_example.jsonnet --e
 Example in: [svg.jsonnet](./xml_files/svg.jsonnet)
 
 ```bash
-jsonnet -S jsonnet_examples/xml_files/svg.jsonnet 
+jsonnet -S jsonnet-examples/xml_files/svg.jsonnet 
 <svg version="1.1" x="0" xmlns="http://www.w3.org/2000/svg" y="0">
   <linearGradient gradientUnits="userSpaceOnUse" id="bg">
     <stop offset="0" stop-color="red"></stop>
@@ -222,7 +222,7 @@ Example in: [yaml_deployment_example.jsonnet](./yaml_files/yaml_deployment_examp
 *Note: We are using std.manifestYamlDoc to convert the output from JSON to YAML but it's not necessary. We don't need a YAML for manifests but it's an example of YAML output.*
 
 ```bash
-$ jsonnet -S jsonnet_examples/yaml_files/yaml_deployment_example.jsonnet --ext-str containerImage=nginx --ext-str containerImageTag=latest --ext-str applicationPort=80 --ext-str replicas=3
+$ jsonnet -S jsonnet-examples/yaml_files/yaml_deployment_example.jsonnet --ext-str containerImage=nginx --ext-str containerImageTag=latest --ext-str applicationPort=80 --ext-str replicas=3
 
 "apiVersion": "apps/v1"
 "kind": "Deployment"
@@ -250,7 +250,7 @@ $ jsonnet -S jsonnet_examples/yaml_files/yaml_deployment_example.jsonnet --ext-s
 ```
 
 ```bash
-$ jsonnet jsonnet_examples/yaml_files/yaml_deployment_example.jsonnet \
+$ jsonnet jsonnet-examples/yaml_files/yaml_deployment_example.jsonnet \
           --ext-str containerImage=nginx \
           --ext-str containerImageTag=latest \
           --ext-str applicationPort=80 \

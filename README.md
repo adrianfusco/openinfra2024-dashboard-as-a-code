@@ -29,7 +29,7 @@ copy and pastes, manual work, among all other things.
 
 We have some examples in `jsonnet` language. It’s important to take a look before jumping to the `grafonnet` section since it has been written in `jsonnet` and we will need it for being able to write some dashboards and visualizations.
 
-All the jsonnet examples will be under the [jsonnet-examples](./jsonnet_examples/README.md).
+All the jsonnet examples will be under the [jsonnet-examples](./jsonnet-examples/README.md).
 
 ## Grafana and grafonnet examples
 
