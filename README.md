@@ -3,6 +3,7 @@
 This repository contains supplementary materials for our presentation
 at the OpenInfra Day Germany 2024.
 
+You can access to the Presentation Slides [here](./dashboard-as-a-code-presentation-slides.pdf).
 
 ## Abstract
 
