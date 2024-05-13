@@ -1,0 +1,16 @@
+<xml encoding="utf-8" version="1.0">
+  <statusCode>200</statusCode>
+  <id>45b59747-c025-4c0b-b319-ba35f5dadc66</id>
+  <parametersData>
+    <requestName>getLocation</requestName>
+    <parameters>
+      <timeZone>Europe/Madrid</timeZone>
+    </parameters>
+  </parametersData>
+  <responseData>
+    <dayOfTheWeek>Thursday</dayOfTheWeek>
+    <date>05/09/2024</date>
+    <time>18:06</time>
+  </responseData>
+</xml>
+

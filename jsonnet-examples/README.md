@@ -1,20 +1,42 @@
-# Requirements
+# Jsonnet examples
 
-We need to install [jsonnet](https://github.com/google/jsonnet) for being able to use the Jsonnet commandline interpreter and convert our `.jsonnet` files.
+
+## Requirements
+
+You need to install [jsonnet](https://github.com/google/jsonnet) for being able
+to use the Jsonnet command line interpreter and convert the `.jsonnet` files.
+
 
 ## Basics
+
+
+### Hello World!
+
+```bash
+jsonnet -e '{"hello": "world"}'
+```
+
+Output:
+
+```bash
+{
+   "hello": "world"
+}
+```
+
 
 ### Sum
 
 ```bash
-$ jsonnet -e '
-local numbers = [5, 1, 2, 3];
-
-std.foldl(
-  function(x, y) (x + y),
-  numbers,
-  0
-)'
+jsonnet -e '
+    local numbers = [5, 1, 2, 3];
+    
+    std.foldl(
+      function(x, y) (x + y),
+      numbers,
+      0
+    )
+'
 ```
 
 Output:
@@ -23,38 +45,40 @@ Output:
 11
 ```
 
+
 ### Loops
 
 ```bash
-$ jsonnet -e '
-local protocol_information = {
-  protocols: [
+jsonnet -e '
+    local protocol_information = {
+      protocols: [
+        {
+          port: 3306,
+          type: "mysql",
+          description: "MySQL/MariaDB service",
+        },
+        {
+          port: 443,
+          type: "https",
+          description: "HTTPS (HTTP over SSL/TLS)",
+        },
+        {
+          port: 80,
+          type: "http",
+          description: "Hypertext transfer protocol",
+        },
+      ],
+    };
+    
     {
-      port: 3306,
-      type: "mysql",
-      description: "MySQL database service (also for MariaDB)",
-    },
-    {
-      port: 443,
-      type: "https",
-      description: "HTTPS (HTTP over SSL/TLS)",
-    },
-    {
-      port: 80,
-      type: "http",
-      description: "Hypertext transfer protocol",
-    },
-  ],
-};
-
-{
-  protocol_information: [
-    {
-      [(p.port + "/" + p.type)]: p.description,
+      protocol_information: [
+        {
+          [(p.port + "/" + p.type)]: p.description,
+        }
+        for p in protocol_information.protocols
+      ],
     }
-    for p in protocol_information.protocols
-  ],
-}'
+'
 ```
 
 Output:
@@ -63,7 +87,7 @@ Output:
 {
    "protocol_information": [
       {
-         "3306/mysql": "MySQL database service (also for MariaDB)"
+         "3306/mysql": "MySQL/MariaDB service"
       },
       {
          "443/https": "HTTPS (HTTP over SSL/TLS)"
@@ -75,27 +99,28 @@ Output:
 }
 ```
 
+
 ### Conditionals
 
 ```bash
 jsonnet -e '
-local numbers = [1, 2, 3, 4, 5];
-
-{
-  numbers: [
-    if n % 2 == 0 then
-      {
-        number: n,
-        type: "even",
-      }
-    else
-      {
-        number: n,
-        type: "odd",
-      }
-    for n in numbers
-  ],
-}
+    local numbers = [1, 2, 3, 4, 5];
+    
+    {
+      numbers: [
+        if n % 2 == 0 then
+          {
+            number: n,
+            type: "even",
+          }
+        else
+          {
+            number: n,
+            type: "odd",
+          }
+        for n in numbers
+      ],
+    }
 '
 ```
 
@@ -128,15 +153,21 @@ Output:
 }
 ```
 
-## Output Formats using jsonnet: INI, XML, YAML
 
-### Generate INI - Supervisord .ini Configuration File
+## Other output formats using Jsonnet
 
-Example in: [supervisord_conf_ini.jsonnet](./ini_files/supervisord_conf_ini.jsonnet)
+
+### Generate INI file
+
+Example in: [supervisord.conf.ini.jsonnet](./ini-files/supervisord.conf.ini.jsonnet)
 
 ```bash
-$ jsonnet -S jsonnet-examples/ini_files/supervisord_conf_ini.jsonnet 
+jsonnet -S ini-files/supervisord.conf.ini.jsonnet 
+```
 
+Output:
+
+```bash
 [program:flask_app_api]
 autorestart = true
 autostart = true
@@ -170,15 +201,18 @@ pidfile = /tmp/supervisord.pid
 user = fedora
 ```
 
+
 ### Generate XML
 
-#### Request Response
-
-Example in: [xml_request_response_example.jsonnet](./xml_files/xml_request_response_example.jsonnet)
+Example in: [response.xml.jsonnet](./xml-files/response.xml.jsonnet)
 
 ```bash
-$ jsonnet -S jsonnet-examples/xml_files/xml_request_response_example.jsonnet --ext-str id=$(uuidgen)
+jsonnet -S xml-files/response.xml.jsonnet --ext-str id=$(uuidgen)
+```
 
+Output:
+
+```bash
 <xml encoding="utf-8" version="1.0">
   <statusCode>200</statusCode>
   <id>5a17a54b-c9ec-4d6a-a961-06be8e8b614a</id>
@@ -196,12 +230,18 @@ $ jsonnet -S jsonnet-examples/xml_files/xml_request_response_example.jsonnet --e
 </xml>
 ```
 
-#### SVG
 
-Example in: [svg.jsonnet](./xml_files/svg.jsonnet)
+### Generate SVG
+
+Example in: [fedora.svg.jsonnet](./xml-files/fedora.svg.jsonnet)
 
 ```bash
-jsonnet -S jsonnet-examples/xml_files/svg.jsonnet 
+jsonnet -S xml-files/fedora.svg.jsonnet 
+```
+
+Output:
+
+```bash
 <svg version="1.1" x="0" xmlns="http://www.w3.org/2000/svg" y="0">
   <linearGradient gradientUnits="userSpaceOnUse" id="bg">
     <stop offset="0" stop-color="red"></stop>
@@ -213,17 +253,24 @@ jsonnet -S jsonnet-examples/xml_files/svg.jsonnet
 
 Result:
 
-![Red Hat SVG](./xml_files/result.svg)
+![Red Hat SVG](./xml-files/fedora.svg)
 
-### Generate YAML - Kubernetes Basic Deployment Manifest
 
-Example in: [yaml_deployment_example.jsonnet](./yaml_files/yaml_deployment_example.jsonnet)
+### Generate YAML
 
-*Note: We are using std.manifestYamlDoc to convert the output from JSON to YAML but it's not necessary. We don't need a YAML for manifests but it's an example of YAML output.*
+Example in: [deployment.yaml.jsonnet](./yaml-files/deployment.yaml.jsonnet)
 
 ```bash
-$ jsonnet -S jsonnet-examples/yaml_files/yaml_deployment_example.jsonnet --ext-str containerImage=nginx --ext-str containerImageTag=latest --ext-str applicationPort=80 --ext-str replicas=3
+jsonnet -S yaml-files/deployment.yaml.jsonnet \
+    --ext-str containerImage=nginx \
+    --ext-str containerImageTag=latest \
+    --ext-str appPort=80 \
+    --ext-str replicas=3
+```
 
+Output:
+
+```bash
 "apiVersion": "apps/v1"
 "kind": "Deployment"
 "metadata":
@@ -247,25 +294,4 @@ $ jsonnet -S jsonnet-examples/yaml_files/yaml_deployment_example.jsonnet --ext-s
         "name": "nginx"
         "ports":
         - "containerPort": 80
-```
-
-```bash
-$ jsonnet jsonnet-examples/yaml_files/yaml_deployment_example.jsonnet \
-          --ext-str containerImage=nginx \
-          --ext-str containerImageTag=latest \
-          --ext-str applicationPort=80 \
-          --ext-str replicas=3 | kubectl apply -f - \
-
-deployment.apps/webserver-deployment configured
-
-$ kubectl get deployment
-NAME                   READY   UP-TO-DATE   AVAILABLE   AGE
-webserver-deployment   4/4     4            4           4m21s
-
-$ kubectl get pods
-NAME                                    READY   STATUS    RESTARTS   AGE
-webserver-deployment-8555667db5-25bsz   1/1     Running   0          94s
-webserver-deployment-8555667db5-8twh6   1/1     Running   0          31s
-webserver-deployment-8555667db5-vl8hv   1/1     Running   0          102s
-webserver-deployment-8555667db5-vzqrp   1/1     Running   0          91s
 ```

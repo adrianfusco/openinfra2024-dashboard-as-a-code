@@ -1,6 +1,6 @@
 local containerImage = std.extVar('containerImage');
 local containerImageTag = std.extVar('containerImageTag');
-local applicationPort = std.parseInt(std.extVar('applicationPort'));
+local applicationPort = std.parseInt(std.extVar('appPort'));
 local replicas = std.parseInt(std.extVar('replicas'));
 
 std.manifestYamlDoc({
@@ -44,6 +44,3 @@ std.manifestYamlDoc({
     },
   },
 })
-
-// $ jsonnet yaml_deployment_example.jsonnet --ext-str containerImage=nginx --ext-str containerImageTag=latest --ext-str applicationPort=80 --ext-str replicas=3 | kubectl apply -f -
-// deployment.apps/webserver-deployment created
